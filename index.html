@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>お父さんのゲーム盤面</title>
+<style>
+  body { font-family: -apple-system, "Hiragino Kaku Gothic ProN", sans-serif; margin: 0; padding: 16px; background: #fdf6ec; color: #333; }
+  h1 { font-size: 22px; text-align: center; margin: 8px 0 4px; }
+  .sub { text-align: center; color: #666; font-size: 14px; margin-bottom: 12px; }
+  .card { background: #fff; border-radius: 16px; padding: 16px; margin: 12px auto; max-width: 480px; box-shadow: 0 2px 8px rgba(0,0,0,.08); }
+  .card h2 { font-size: 18px; margin: 0 0 10px; }
+  .bar-wrap { background: #eee; border-radius: 999px; height: 18px; overflow: hidden; }
+  .bar { background: #f59e0b; height: 100%; width: 35%; }
+  .stats { display: flex; justify-content: space-around; text-align: center; margin-top: 10px; }
+  .stats b { display: block; font-size: 24px; }
+  .stats span { font-size: 12px; color: #666; }
+  table.sudoku { border-collapse: collapse; margin: 0 auto; }
+  table.sudoku td { width: 34px; height: 34px; text-align: center; font-size: 20px; font-weight: bold; border: 1px solid #bbb; }
+  table.sudoku td:nth-child(3), table.sudoku td:nth-child(6) { border-right: 3px solid #333; }
+  table.sudoku tr:nth-child(3) td, table.sudoku tr:nth-child(6) td { border-bottom: 3px solid #333; }
+  td.given { background: #fff; }
+  td.revealed { background: #fde68a; color: #92400e; }
+  td.hidden { color: #ccc; font-weight: normal; }
+  .legend { font-size: 13px; color: #666; text-align: center; margin-top: 8px; }
+  .legend i { display: inline-block; width: 14px; height: 14px; background: #fde68a; border: 1px solid #d97706; vertical-align: -2px; margin: 0 4px; }
+  table.go { border-collapse: collapse; margin: 0 auto; background: #e8b96a; }
+  table.go td { width: 44px; height: 44px; text-align: center; font-size: 30px; border: 1px solid #8a6d3b; }
+  .rules { font-size: 15px; line-height: 1.9; }
+  .note { font-size: 13px; color: #666; text-align: center; }
+</style>
+</head>
+<body>
+<h1>🧩 お父さんのゲーム盤面</h1>
+<p class="sub">運動すると、パズルのマスが開きます</p>
+
+<div class="card">
+  <h2>いまの進み具合</h2>
+  <div class="bar-wrap"><div class="bar"></div></div>
+  <p style="text-align:center;margin:8px 0 0;"><b>28 / 81マス（35%）</b>　あと53マス</p>
+  <div class="stats">
+    <div><b>5点</b><span>ポイント</span></div>
+    <div><b>1日</b><span>連続</span></div>
+    <div><b>11/14</b><span>体操を実施</span></div>
+  </div>
+</div>
+
+<div class="card">
+  <h2>数字パズル 第1問</h2>
+  <table class="sudoku">
+    <tr><td class="hidden">？</td><td class="hidden">？</td><td class="given">2</td><td class="hidden">？</td><td class="given">3</td><td class="hidden">？</td><td class="hidden">？</td><td class="hidden">？</td><td class="given">5</td></tr>
+    <tr><td class="given">1</td><td class="hidden">？</td><td class="revealed">3</td><td class="hidden">？</td><td class="hidden">？</td><td class="hidden">？</td><td class="hidden">？</td><td class="given">7</td><td class="hidden">？</td></tr>
+    <tr><td class="given">6</td><td class="given">9</td><td class="hidden">？</td><td class="hidden">？</td><td class="hidden">？</td><td class="hidden">？</td><td class="hidden">？</td><td class="revealed">3</td><td class="given">8</td></tr>
+    <tr><td class="hidden">？</td><td class="hidden">？</td><td class="hidden">？</td><td class="given">7</td><td class="hidden">？</td><td class="given">2</td><td class="hidden">？</td><td class="given">5</td><td class="hidden">？</td></tr>
+    <tr><td class="hidden">？</td><td class="hidden">？</td><td class="hidden">？</td><td class="hidden">？</td><td class="hidden">？</td><td class="hidden">？</td><td class="given">7</td><td class="hidden">？</td><td class="hidden">？</td></tr>
+    <tr><td class="hidden">？</td><td class="given">3</td><td class="hidden">？</td><td class="given">1</td><td class="given">8</td><td class="given">6</td><td class="hidden">？</td><td class="hidden">？</td><td class="hidden">？</td></tr>
+    <tr><td class="given">3</td><td class="hidden">？</td><td class="given">6</td><td class="hidden">？</td><td class="hidden">？</td><td class="given">4</td><td class="hidden">？</td><td class="hidden">？</td><td class="hidden">？</td></tr>
+    <tr><td class="hidden">？</td><td class="given">7</td><td class="hidden">？</td><td class="hidden">？</td><td class="given">5</td><td class="hidden">？</td><td class="hidden">？</td><td class="given">1</td><td class="given">6</td></tr>
+    <tr><td class="hidden">？</td><td class="hidden">？</td><td class="given">8</td><td class="hidden">？</td><td class="hidden">？</td><td class="given">7</td><td class="hidden">？</td><td class="given">2</td><td class="hidden">？</td></tr>
+  </table>
+  <p class="legend"><i></i>＝運動で開いたマス（11/14の体操で2マス）</p>
+  <p class="note">タテ・ヨコ・太線の3×3に、1〜9が1回ずつ入ります。</p>
+</div>
+
+<div class="card">
+  <h2>囲碁 第2問 — 次の一手は？</h2>
+  <p style="text-align:center;margin-top:0;">黒の番です。白石を取る「次の一手」はどこでしょう？</p>
+  <table class="go">
+    <tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td></td><td></td><td>●</td><td></td><td></td><td></td></tr>
+    <tr><td></td><td>●</td><td>○</td><td>○</td><td>●</td><td></td></tr>
+    <tr><td></td><td>●</td><td>○</td><td>○</td><td>●</td><td></td></tr>
+  </table>
+  <p class="note">左から C・D・E・F・G・H、下から 1・2・3・4・5 です。答えは毎日のチェックインで送ってください。答え合わせは日曜の夜です。</p>
+</div>
+
+<div class="card">
+  <h2>運動すると開くマス</h2>
+  <div class="rules">
+    🏃 ウォームアップ体操 … ＋2マス（5点）<br>
+    🚶 ウォーキング（平坦な道10分まで） … ＋3マス（10点）<br>
+    💪 椅子の立ち座り＋かかと上げ … ＋2マス（5点）<br>
+    🌟 3つ全部できた日 … ボーナス＋3マス（＋5点）
+  </div>
+</div>
+
+<p class="note">更新日：2026年11月17日（囲碁は第2問に進みました）<br>無理のない範囲で、毎日少しずつ。</p>
+</body>
+</html>

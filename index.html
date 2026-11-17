@@ -65,7 +65,7 @@
 <div class="card">
   <h2>囲碁 第2問 — 次の一手は？</h2>
   <p style="text-align:center;margin-top:0;">黒の番です。白石を取る「次の一手」はどこでしょう？（今週は少し難しめです）</p>
-  <svg viewBox="0 0 380 290" style="display:block;margin:0 auto;width:100%;max-width:380px;" role="img" aria-label="囲碁盤面">
+  <svg id="go-board" viewBox="0 0 380 290" style="display:block;margin:0 auto;width:100%;max-width:380px;" role="img" aria-label="囲碁盤面">
     <rect x="10" y="10" width="360" height="240" fill="#e8b96a" stroke="#8a6d3b"/>
     <g stroke="#5b4632" stroke-width="1.5">
       <line x1="40" y1="40" x2="40" y2="220"/><line x1="100" y1="40" x2="100" y2="220"/><line x1="160" y1="40" x2="160" y2="220"/><line x1="220" y1="40" x2="220" y2="220"/><line x1="280" y1="40" x2="280" y2="220"/><line x1="340" y1="40" x2="340" y2="220"/>
@@ -78,7 +78,8 @@
     <circle cx="220" cy="100" r="26" fill="#111"/><circle cx="280" cy="100" r="26" fill="#111"/>
     <circle cx="160" cy="160" r="26" fill="#111"/><circle cx="220" cy="160" r="26" fill="#fff" stroke="#333" stroke-width="2"/><circle cx="340" cy="160" r="26" fill="#fff" stroke="#333" stroke-width="2"/>
   </svg>
-  <p class="note">石は線の交点に置いてあります。左から A・B・C・D・E・F、下から 1・2・3・4 です。答えは毎日のチェックインで送ってください。答え合わせはその日の夜です。正解したら、次の問題に進みます。</p>
+  <p class="note">石は線の交点に置いてあります。左から A・B・C・D・E・F、下から 1・2・3・4 です。<br>「ここだ」と思う交点をタップすると、その場で答え合わせができます。答えは毎日のチェックインにも書いてください。</p>
+  <div id="go-feedback" style="text-align:center;font-size:17px;font-weight:bold;min-height:26px;margin-top:6px;"></div>
 </div>
 
 <div class="card">
@@ -92,5 +93,40 @@
 </div>
 
 <p class="note">更新日：2026年11月17日（囲碁は第2問に進みました）<br>無理のない範囲で、毎日少しずつ。</p>
+<script>
+(function(){
+  var ANSWER_HASH = 5861842;
+  function h(s){ var x=5381; for(var i=0;i<s.length;i++){ x=((x*33)^s.charCodeAt(i))>>>0; } return x; }
+  var cols=['A','B','C','D','E','F'], rows=[4,3,2,1];
+  var svg=document.getElementById('go-board');
+  var fb=document.getElementById('go-feedback');
+  if(!svg||!fb) return;
+  var solved=false;
+  cols.forEach(function(c,ci){ rows.forEach(function(r,ri){
+    var circ=document.createElementNS('http://www.w3.org/2000/svg','circle');
+    circ.setAttribute('cx',40+ci*60); circ.setAttribute('cy',40+ri*60);
+    circ.setAttribute('r',28); circ.setAttribute('fill','rgba(0,0,0,0)');
+    circ.style.cursor='pointer';
+    circ.addEventListener('click',function(){
+      if(solved) return;
+      var coord=c+r;
+      if(h(coord)===ANSWER_HASH){
+        solved=true;
+        var stone=document.createElementNS('http://www.w3.org/2000/svg','circle');
+        stone.setAttribute('cx',40+ci*60); stone.setAttribute('cy',40+ri*60);
+        stone.setAttribute('r',26); stone.setAttribute('fill','#111');
+        stone.setAttribute('stroke','#d97706'); stone.setAttribute('stroke-width','4');
+        svg.appendChild(stone);
+        fb.textContent='🎉 正解！ '+coord+' の一手で白石が取れます。フォームの「囲碁の答え」にも '+coord+' と書いてください。';
+        fb.style.color='#b45309';
+      } else {
+        fb.textContent='残念、'+coord+' ではありません。もう一度考えてみてください。';
+        fb.style.color='#666';
+      }
+    });
+    svg.appendChild(circ);
+  });});
+})();
+</script>
 </body>
 </html>
